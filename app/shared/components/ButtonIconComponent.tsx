@@ -14,7 +14,7 @@ const ButtonIconComponent = (props: IProps) => {
 
 interface IProps {
   icon: string;
-  action: Function;
+  action: any;
 }
 
 const styles = StyleSheet.create({

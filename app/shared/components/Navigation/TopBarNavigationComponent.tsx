@@ -2,35 +2,42 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import TopBarNavigationOption from './TopBarNavigationOptionComponent';
 import DarkTheme from '../../layoutStyles/DarkLayoutStyle';
+import {TopBarNavigationTypes} from '../../../constant/TopBarNavigationTypes';
 
 const TopBarNavigation = (props: IProps) => {
   const goToNewsScreen = () => {
-    props.navigation.navigate('news');
+    props.navigation.navigate('home');
   };
 
   const goToCreateNewsScreen = () => {
-    props.navigation.navigate('create-news');
+    props.navigation.navigate('create');
   };
 
   const goToMyProfileScreen = () => {
-    props.navigation.navigate('create-news');
+    props.navigation.navigate('profile');
   };
 
   return (
     <View style={styles.topBarNavigation}>
       <TopBarNavigationOption
         Text="News"
-        IsActive={true}
+        IsActive={
+          props.activeMenu === TopBarNavigationTypes.News ? true : false
+        }
         action={goToNewsScreen}
       />
       <TopBarNavigationOption
         Text="Create"
-        IsActive={false}
+        IsActive={
+          props.activeMenu === TopBarNavigationTypes.Create ? true : false
+        }
         action={goToCreateNewsScreen}
       />
       <TopBarNavigationOption
         Text="My Profile"
-        IsActive={false}
+        IsActive={
+          props.activeMenu === TopBarNavigationTypes.Profile ? true : false
+        }
         action={goToMyProfileScreen}
       />
     </View>
@@ -39,6 +46,7 @@ const TopBarNavigation = (props: IProps) => {
 
 interface IProps {
   navigation: any;
+  activeMenu: TopBarNavigationTypes;
 }
 
 const styles = StyleSheet.create({

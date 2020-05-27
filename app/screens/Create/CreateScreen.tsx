@@ -9,8 +9,8 @@ import AppFooter from '../../shared/components/AppFooter/AppFooter';
 import AppFooterMenu from '../../shared/components/AppFooter/AppFooterMenu';
 import {TopBarNavigationTypes} from '../../constant/TopBarNavigationTypes';
 
-const HomeScreen = (props: IProps) => {
-  const activeMenu = TopBarNavigationTypes.News;
+const CreateScreen = (props: IProps) => {
+  const activeMenu = TopBarNavigationTypes.Create;
   return (
     <SafeAreaView style={DarkLayoutStyle.scrollView}>
       <ScrollView
@@ -32,4 +32,4 @@ interface IProps {
   navigation: any;
 }
 
-export default HomeScreen;
+export default CreateScreen;

@@ -3,6 +3,7 @@ import NewsDetailsComponent from '../../shared/components/News/NewsDetailsCompon
 import {INews} from '../../interfaces/INews';
 import {ScrollView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import AppFooter from '../../shared/components/AppFooter/AppFooter';
 
 const NewsDetailsScreen = (props: INews) => {
   return (
@@ -18,6 +19,7 @@ const NewsDetailsScreen = (props: INews) => {
           url={props.url}
         />
       </ScrollView>
+      <AppFooter />
     </SafeAreaView>
   );
 };

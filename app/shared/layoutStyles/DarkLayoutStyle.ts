@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const DarkLayoutStyle = StyleSheet.create({
   scrollView: {
-    flex: 1,
+    flex: 4,
     backgroundColor: '#212121',
     borderBottomColor: '#212121',
     borderBottomWidth: 0,

@@ -8,6 +8,8 @@ import HomeScreen from './app/screens/Home/HomeScreen';
 import AppHeader from './app/shared/components/AppHeader/AppHeaderComponent';
 import {AppSectionColour} from './app/shared/layoutStyles/DarkLayoutStyle';
 import NewsDetailsScreen from './app/screens/Home/NewsDetailsScreen';
+import CreateScreen from './app/screens/Create/CreateScreen';
+import ProfileScreen from './app/screens/Profile/ProfileScreen';
 
 const App = () => {
   return (
@@ -20,13 +22,23 @@ const App = () => {
           },
         }}>
         <Stack.Screen
-          name="Home"
+          name="home"
           component={HomeScreen}
           options={{header: () => <AppHeader />}}
         />
         <Stack.Screen
-          name="NewsDetails"
+          name="newsDetails"
           component={NewsDetailsScreen}
+          options={{header: () => <AppHeader />}}
+        />
+        <Stack.Screen
+          name="create"
+          component={CreateScreen}
+          options={{header: () => <AppHeader />}}
+        />
+        <Stack.Screen
+          name="profile"
+          component={ProfileScreen}
           options={{header: () => <AppHeader />}}
         />
       </Stack.Navigator>

@@ -6,10 +6,9 @@ import DarkTheme from '../../shared/layoutStyles/DarkLayoutStyle';
 import NewsListComponent from '../../shared/components/News/NewsListComponent';
 import DarkLayoutStyle from '../../shared/layoutStyles/DarkLayoutStyle';
 import AppFooter from '../../shared/components/AppFooter/AppFooter';
-import AppFooterMenu from '../../shared/components/AppFooter/AppFooterMenu';
 import {TopBarNavigationTypes} from '../../constant/TopBarNavigationTypes';
 
-const ProfileScreen = (props: IProps) => {
+const ProfileEditScreen = (props: IProps) => {
   const activeMenu = TopBarNavigationTypes.Profile;
   return (
     <SafeAreaView style={DarkLayoutStyle.scrollView}>
@@ -31,4 +30,4 @@ interface IProps {
   navigation: any;
 }
 
-export default ProfileScreen;
+export default ProfileEditScreen;

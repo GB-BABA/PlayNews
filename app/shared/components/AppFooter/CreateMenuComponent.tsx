@@ -1,25 +1,32 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Image, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const CreateMenuComponent = (props: IProps) => {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        props.navigation.navigate('create');
+        navigation.navigate('create');
       }}>
       {props.isActive ? (
-        <Image source={require('../../../../assets/icons/create-active.png')} />
+        <Image
+          style={styles.image}
+          source={require('../../../../assets/icons/create-active.png')}
+        />
       ) : (
-        <Image source={require('../../../../assets/icons/create.png')} />
+        <Image
+          style={styles.image}
+          source={require('../../../../assets/icons/create.png')}
+        />
       )}
     </TouchableOpacity>
   );
 };
 
 interface IProps {
-  navigation: any;
   isActive: boolean;
 }
 
@@ -28,6 +35,10 @@ const styles = StyleSheet.create({
     padding: 5,
     width: 40,
     height: 40,
+    marginTop: 10,
+  },
+  image: {
+    alignSelf: 'center',
     marginTop: 10,
   },
 });

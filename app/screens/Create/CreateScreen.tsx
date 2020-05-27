@@ -23,7 +23,6 @@ const CreateScreen = (props: IProps) => {
         <NewsListComponent />
         <AppFooter />
       </ScrollView>
-      <AppFooterMenu navigation={props.navigation} activeMenu={activeMenu} />
     </SafeAreaView>
   );
 };

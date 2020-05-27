@@ -3,18 +3,20 @@ import {View, StyleSheet} from 'react-native';
 import TopBarNavigationOption from './TopBarNavigationOptionComponent';
 import DarkTheme from '../../layoutStyles/DarkLayoutStyle';
 import {TopBarNavigationTypes} from '../../../constant/TopBarNavigationTypes';
+import {useNavigation} from '@react-navigation/native';
 
 const TopBarNavigation = (props: IProps) => {
+  const navigation = useNavigation();
   const goToNewsScreen = () => {
-    props.navigation.navigate('home');
+    navigation.navigate('home');
   };
 
   const goToCreateNewsScreen = () => {
-    props.navigation.navigate('create');
+    navigation.navigate('create');
   };
 
   const goToMyProfileScreen = () => {
-    props.navigation.navigate('profile');
+    navigation.navigate('profile');
   };
 
   return (
@@ -45,7 +47,6 @@ const TopBarNavigation = (props: IProps) => {
 };
 
 interface IProps {
-  navigation: any;
   activeMenu: TopBarNavigationTypes;
 }
 

@@ -6,13 +6,14 @@ import CreateMenu from './app/shared/components/AppFooter/CreateMenuComponent';
 import MyProfileMenu from './app/shared/components/AppFooter/MyProfileMenuComponent';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from './app/screens/Home/HomeScreen';
+import HomeScreen from './app/screens/home/HomeScreen';
 import AppHeader from './app/shared/components/AppHeader/AppHeaderComponent';
 import {AppSectionColour} from './app/shared/layoutStyles/DarkLayoutStyle';
-import NewsDetailsScreen from './app/screens/Home/NewsDetailsScreen';
-import CreateScreen from './app/screens/Create/CreateScreen';
-import ProfileScreen from './app/screens/Profile/ProfileScreen';
-import ProfileEditScreen from './app/screens/Profile/ProfileEditScreen';
+import NewsDetailsScreen from './app/screens/home/NewsDetailsScreen';
+import CreateScreen from './app/screens/create/CreateScreen';
+import ProfileScreen from './app/screens/profile/ProfileScreen';
+import ProfileEditScreen from './app/screens/profile/ProfileEditScreen';
+import AppHeaderWithBackButtonComponent from './app/shared/components/AppHeader/AppHeaderWithBackButtonComponent';
 
 const HomeStack = createStackNavigator();
 
@@ -74,7 +75,11 @@ export function ProfileScreenStack() {
       <ProfileStack.Screen
         name="edit-profile"
         component={ProfileEditScreen}
-        options={{header: () => <AppHeader />}}
+        options={{
+          header: () => (
+            <AppHeaderWithBackButtonComponent name="Edit Profile" />
+          ),
+        }}
       />
     </ProfileStack.Navigator>
   );
@@ -87,7 +92,7 @@ export const PlayNewsTabTheme = {
     background: 'rgb(54, 54, 54)',
     card: 'rgb(54, 54, 54)',
     text: 'rgb(255, 255, 255)',
-    border: 'rgb(199, 199, 204)',
+    border: 'transparent',
   },
 };
 

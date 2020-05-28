@@ -1,48 +1,60 @@
-import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {Colours} from '../../constant/Colours';
-import {AppSectionColour} from '../../shared/layoutStyles/DarkLayoutStyle';
+import {DefaultFontFamily} from '../../shared/layoutStyles/DarkLayoutStyle';
+import {getPercentageWidth} from '../../util/Dimensions';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colours.Grey,
+    flexDirection: 'column',
+    justifyContent: 'center',
+
+    alignItems: 'center',
   },
-  scrollView: {
-    backgroundColor: Colours.Grey,
+  profilePicture: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    marginTop: 30,
+    marginBottom: 15,
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  profileName: {
+    fontSize: 28,
+    color: Colours.White,
+    fontWeight: '300',
+    fontFamily: DefaultFontFamily.Thin,
+    marginTop: 30,
   },
-  body: {
-    backgroundColor: AppSectionColour.appBackground,
+  profileBio: {
+    fontSize: 19,
+    width: getPercentageWidth(80),
+    color: Colours.Grey,
+    fontWeight: '200',
+    fontFamily: DefaultFontFamily.Thin,
+    marginTop: 20,
+    paddingHorizontal: 14,
+    textAlign: 'center',
+    lineHeight: 30,
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  actionLabel: {
+    fontWeight: 'bold',
+    fontFamily: DefaultFontFamily.Bold,
+    marginVertical: 50,
+    textDecorationLine: 'underline',
+    color: Colours.White,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colours.Dark,
+  formControl: {
+    paddingHorizontal: 10,
+    marginVertical: 25,
+    width: '80%',
+    color: Colours.White,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colours.Dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colours.Dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  submitBtn: {
+    marginVertical: 40,
+    // paddingHorizontal: 30,
+    // width: '90%',
+    width: Platform.ios ? '80%' : getPercentageWidth(80),
+    alignSelf: 'center',
   },
 });
 

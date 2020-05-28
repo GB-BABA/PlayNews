@@ -26,7 +26,7 @@ const AppHeader = (props: any) => {
 const styles = StyleSheet.create({
   header: {
     ...DarkTheme.appHeader,
-    flex: 1,
+
     justifyContent: 'space-between',
     flexDirection: 'row',
     padding: 15,

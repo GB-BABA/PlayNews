@@ -1,3 +1,5 @@
 export enum Icons {
-  BackIcon = '../../assets/icons/back.png',
+  BackIcon = require('../../assets/icons/back.png'),
+  SettingsIcon = require('../../assets/icons/settings.png'),
+  UploadIcon = require('../../assets/icons/upload-icon.png'),
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Image, StyleSheet} from 'react-native';
+import {Image, StyleSheet, Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const CreateMenuComponent = (props: IProps) => {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   image: {
     alignSelf: 'center',
-    marginTop: 10,
+    marginTop: Platform.OS === 'ios' ? '2%' : 0,
   },
 });
 export default CreateMenuComponent;

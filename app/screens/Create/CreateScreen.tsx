@@ -1,34 +1,62 @@
 import React from 'react';
-import {ScrollView, SafeAreaView} from 'react-native';
+import {
+  ScrollView,
+  SafeAreaView,
+  Platform,
+  KeyboardAvoidingView,
+} from 'react-native';
 import TopBarNavigation from '../../shared/components/Navigation/TopBarNavigationComponent';
 import DarkTheme from '../../shared/layoutStyles/DarkLayoutStyle';
 
-import NewsListComponent from '../../shared/components/News/NewsListComponent';
 import DarkLayoutStyle from '../../shared/layoutStyles/DarkLayoutStyle';
 import AppFooter from '../../shared/components/AppFooter/AppFooter';
-import AppFooterMenu from '../../shared/components/AppFooter/AppFooterMenu';
 import {TopBarNavigationTypes} from '../../constant/TopBarNavigationTypes';
+import UserProfileSettings from '../../shared/components/Settings/UserProfileSettingsComponent';
+import UploadNewsImage from '../../shared/components/News/UploadNewsImageComponent';
+import InputWithLabel from '../..//shared/components/InputWithLabelComponent';
+import TextView from '../../shared/components/TextComponent';
+import GradiantButton from '../../shared/components/GradiantButton';
+import styles from './CreateScreen.Styles';
 
-const CreateScreen = (props: IProps) => {
+const CreateScreen = () => {
   const activeMenu = TopBarNavigationTypes.Create;
   return (
-    <SafeAreaView style={DarkLayoutStyle.scrollView}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={DarkTheme.scrollView}>
-        <TopBarNavigation
-          navigation={props.navigation}
-          activeMenu={activeMenu}
-        />
-        <NewsListComponent />
-        <AppFooter />
-      </ScrollView>
-    </SafeAreaView>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      style={{flex: 1}}>
+      <SafeAreaView style={DarkLayoutStyle.scrollView}>
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={DarkTheme.scrollView}>
+          <TopBarNavigation activeMenu={activeMenu} />
+          <UserProfileSettings name="Akinsanya Omogbolahan" />
+          <UploadNewsImage />
+          <InputWithLabel
+            style={styles.formControl}
+            title="Title"
+            isMultiline={false}
+            placeholder="Enter news title"
+          />
+          <InputWithLabel
+            style={styles.formControl}
+            title="Description"
+            isMultiline={true}
+            placeholder="Share your story with the world"
+          />
+          <TextView style={styles.terms}>
+            Kindly ensure that you don’t post abusive or inappropriate contents
+            that is not suitable for young adults and the general public
+          </TextView>
+
+          <GradiantButton style={styles.submitBtn} onPress={() => {}}>
+            Submit
+          </GradiantButton>
+
+          <AppFooter />
+        </ScrollView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
-
-interface IProps {
-  navigation: any;
-}
 
 export default CreateScreen;

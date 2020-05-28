@@ -1,10 +1,11 @@
-import React from 'react';
-import {View, StyleSheet, TextInput} from 'react-native';
+import React, {useState} from 'react';
+import {View, StyleSheet, TextInput, Platform} from 'react-native';
 import TextView from './TextComponent';
 import {Colours} from '../../constant/Colours';
 import {DefaultFontFamily} from '../layoutStyles/DarkLayoutStyle';
 
 const InputWithLabel = (props: IProps) => {
+  const [value, setValue] = useState(props.value);
   return (
     <View
       style={
@@ -14,7 +15,11 @@ const InputWithLabel = (props: IProps) => {
       <TextInput
         style={styles.textInput}
         placeholder={props.placeholder}
-        placeholderTextColor={Colours.Grey}
+        onChangeText={(text) => setValue(text)}
+        placeholderTextColor={
+          Platform.OS === 'ios' ? Colours.Grey : Colours.White
+        }
+        value={value}
         multiline={props.isMultiline}
         autoFocus={false}
       />
@@ -27,6 +32,7 @@ interface IProps {
   placeholder: string;
   style?: object;
   isMultiline: boolean;
+  value?: string;
 }
 
 const styles = StyleSheet.create({
@@ -34,18 +40,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   label: {
-    color: Colours.White,
-    fontFamily: DefaultFontFamily.Light,
-    fontWeight: '300',
-    fontSize: 22,
+    color: Platform.OS === 'ios' ? Colours.White : Colours.Grey,
+    fontFamily:
+      Platform.OS === 'ios' ? DefaultFontFamily.Light : DefaultFontFamily.Thin,
+    fontWeight: Platform.OS === 'ios' ? '300' : '200',
+    fontSize: Platform.OS === 'ios' ? 22 : 16,
   },
   textInput: {
-    fontSize: 18,
+    fontSize: Platform.OS === 'ios' ? 18 : 20,
     color: Colours.White,
-    fontWeight: '200',
+    fontFamily:
+      Platform.OS === 'ios' ? DefaultFontFamily.Light : DefaultFontFamily.Thin,
+    fontWeight: Platform.OS === 'ios' ? '200' : '100',
     borderBottomWidth: 0.4,
     paddingBottom: 20,
-    marginTop: 25,
+    marginTop: Platform.OS === 'ios' ? 25 : 15,
     borderBottomColor: Colours.Grey,
   },
 });

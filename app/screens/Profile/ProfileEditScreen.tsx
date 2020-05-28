@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   SafeAreaView,
@@ -6,27 +6,32 @@ import {
   View,
   KeyboardAvoidingView,
 } from 'react-native';
-import TopBarNavigation from '../../shared/components/Navigation/TopBarNavigationComponent';
 import DarkTheme from '../../shared/layoutStyles/DarkLayoutStyle';
 import {Image} from 'react-native-elements';
 import AppFooter from '../../shared/components/AppFooter/AppFooter';
-import {TopBarNavigationTypes} from '../../constant/TopBarNavigationTypes';
 import InputWithLabel from '../../shared/components/InputWithLabelComponent';
 import styles from './ProfileEditScreen.Styles';
 import GradiantButton from '../../shared/components/GradiantButton';
+import {IUser} from '../../interfaces/IUser';
+import {connect} from 'react-redux';
 
-const ProfileEditScreen = () => {
-  const activeMenu = TopBarNavigationTypes.Profile;
+const ProfileEditScreen = (props: IProps) => {
+  let initialState: IUser = {
+    username: props.user.username,
+    biography: props.user.biography,
+    picture: props.user.picture,
+  };
+  console.log(initialState);
+  const [state] = useState({...initialState});
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
       style={{flex: 1}}>
       <SafeAreaView style={DarkTheme.scrollView}>
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <TopBarNavigation activeMenu={activeMenu} />
           <View style={styles.container}>
             <Image
-              source={{uri: 'https://i.picsum.photos/id/888/640/480.jpg'}}
+              source={{uri: state.picture}}
               style={styles.profilePicture}
               PlaceholderContent={<ActivityIndicator />}
             />
@@ -35,12 +40,14 @@ const ProfileEditScreen = () => {
               title="Username"
               isMultiline={false}
               placeholder="Enter your name"
+              value={state.username}
             />
             <InputWithLabel
               style={styles.formControl}
               title="Bio"
               isMultiline={false}
               placeholder="Enter your bio"
+              value={state.biography}
             />
             <GradiantButton style={styles.submitBtn} onPress={() => {}}>
               Save Changes
@@ -54,7 +61,12 @@ const ProfileEditScreen = () => {
 };
 
 interface IProps {
-  navigation: any;
+  user: IUser;
 }
 
-export default ProfileEditScreen;
+const mapState = (state) => ({
+  count: state.count,
+  user: state.userProfileModel,
+});
+
+export default connect(mapState, null)(ProfileEditScreen);

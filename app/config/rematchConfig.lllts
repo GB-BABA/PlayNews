@@ -1,12 +1,18 @@
 import {init} from '@rematch/core';
-import * as models from './models';
+import newsModel from '../models/newsModel';
+import userProfileModel from '../models/userProfileModel';
+
 import createRematchPersist from '@rematch/persist';
 
 const persistPlugin = createRematchPersist({
-  whitelist: ['modelName1'],
+  whitelist: [],
   throttle: 5000,
   version: 1,
 });
+
+const models = {
+  userProfileModel,
+};
 
 const store = init({
   models,

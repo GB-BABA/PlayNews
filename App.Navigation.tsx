@@ -27,11 +27,19 @@ export function HomeStackScreen() {
         },
       }}>
       <HomeStack.Screen
-        name="Home"
+        name="home"
         component={HomeScreen}
         options={{header: () => <AppHeader />}}
       />
-      <HomeStack.Screen name="Details" component={NewsDetailsScreen} />
+      <HomeStack.Screen
+        name="news-details"
+        component={NewsDetailsScreen}
+        options={{
+          header: (props) => (
+            <AppHeaderWithBackButtonComponent name={props.navigation.n} />
+          ),
+        }}
+      />
     </HomeStack.Navigator>
   );
 }

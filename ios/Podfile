@@ -82,6 +82,8 @@ target 'PlayNews' do
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
+  
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
   target 'PlayNewsTests' do
     inherit! :complete

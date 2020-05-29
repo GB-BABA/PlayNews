@@ -7,6 +7,7 @@ import {DefaultFontFamily} from '../layoutStyles/DarkLayoutStyle';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 import ImagePicker from 'react-native-image-picker';
+import ImageUploaderService from '../../services/ImageUploaderService';
 
 // More info on all the options is below in the API Reference... just some common use cases shown here
 const options = {
@@ -24,6 +25,7 @@ const options = {
 
 const UploaderComponent = (props: IPops) => {
   const [state, setState] = useState({url: '', isImageAvailable: false});
+  console.log(ImageUploaderService);
   const pickImage = () => {
     ImagePicker.showImagePicker(options, (response) => {
       // console.log('Response = ', response);

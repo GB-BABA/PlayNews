@@ -8,11 +8,16 @@ import {Colours} from '../../../constant/Colours';
 import TextView from '../TextComponent';
 import {DefaultFontFamily} from '../../layoutStyles/DarkLayoutStyle';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
 const News = (props: INews) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('news-details');
+        }}>
         {/* {props.image && <NewsImagePlaceholder />}
       {!props.image && <NewsImage source={props.image ?? ''} />} */}
         <NewsImagePlaceholder style={styles.captionImage} />

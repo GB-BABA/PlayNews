@@ -11,7 +11,7 @@ const NewsPaginationButton = (props: IProps) => {
     borderRadius: 100,
     marginHorizontal: 8,
     borderWidth: 0.8,
-    borderColor: props.isActive
+    borderColor: props.highlight
       ? '#FAB812'
       : props.icon
       ? Colours.Grey
@@ -21,6 +21,7 @@ const NewsPaginationButton = (props: IProps) => {
   };
   return (
     <TouchableOpacity
+      disabled={props.isActive === false}
       onPress={() => {
         props.action();
       }}>
@@ -47,6 +48,7 @@ interface IProps {
   action: Function;
   icon: string;
   isActive: boolean;
+  highlight?: boolean;
 }
 
 const styles = StyleSheet.create({

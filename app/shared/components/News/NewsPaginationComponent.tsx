@@ -3,18 +3,19 @@ import {Image, StyleSheet, View} from 'react-native';
 import NewsPaginationButton from './NewsPaginationButtonComponent';
 
 const NewsPagination = (props: IProps) => {
-  console.log(props.backFunction);
   return (
     <View style={styles.defaultContainer}>
       <NewsPaginationButton
         action={props.backFunction}
         icon="back"
-        isActive={props.disableNext}
+        isActive={true}
+        highlight={props.disableNext}
       />
       <NewsPaginationButton
         action={props.nextFunction}
         icon="next"
         isActive={!props.disableNext}
+        highlight={!props.disableNext}
       />
     </View>
   );

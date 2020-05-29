@@ -1,9 +1,6 @@
 export interface INewsList {
   news: Array<INews>;
   pageIndex: number;
-  pageLimit: number;
-  isNextPageEmpty: boolean;
-  isPageLoading: boolean;
 }
 
 export interface INews {
@@ -13,5 +10,5 @@ export interface INews {
   createdAt?: Date;
   url?: string;
   body?: string;
-  image?: string;
+  image?: Array<string>;
 }

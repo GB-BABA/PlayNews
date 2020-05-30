@@ -1,87 +1,56 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {FlatList} from 'react-native-gesture-handler';
 import News from './NewsComponent';
-import {INewsList} from '../../../interfaces/INews';
-import {StyleSheet, View, Alert, Platform} from 'react-native';
+import {INewsListComponent} from '../../../interfaces/INews';
+import {StyleSheet, View, Platform, Alert} from 'react-native';
 import {AppSectionColour} from '../../layoutStyles/DarkLayoutStyle';
 import NewsPagination from './NewsPaginationComponent';
-import axiosClient from '../../../config/axiosConfig';
 import NewsLoading from './NewsLoadingComponent';
 import * as DimensionsUtil from '../../../util/Dimensions';
+import {connect} from 'react-redux';
 
-const NewsListComponent = () => {
-  const initialNewsListComponentState: INewsListComponent = {
-    news: [],
-    isPageLoading: true,
-    hasNext: true,
-    pageIndex: 1,
-    pageLimit: 5,
+const NewsListComponent = (props: IProps) => {
+  const scrollRef = useRef<FlatList>();
+
+  const scrollTop = () => {
+    scrollRef.current?.scrollToOffset({animated: true, offset: 0});
   };
-
-  const [newsPageState, setNewsPageState] = useState({
-    ...initialNewsListComponentState,
-  });
 
   useEffect(() => {
     if (
-      (newsPageState.pageIndex === 1 && newsPageState.isPageLoading) ||
-      (newsPageState.pageIndex > 1 &&
+      (props.newsData.pageIndex === 1 && props.newsData.isPageLoading) ||
+      (props.newsData.pageIndex > 1 &&
         !isNewsDataEmpty() &&
-        newsPageState.isPageLoading)
+        props.newsData.isPageLoading)
     ) {
       fetchData();
     }
   });
 
-  const isNewsDataEmpty = (): boolean => newsPageState.news.length === 0;
+  const isNewsDataEmpty = (): boolean => props.newsData.news.length === 0;
 
-  const fetchData = async () => {
-    try {
-      const response = await axiosClient.get('/news', {
-        params: {
-          page: newsPageState.pageIndex,
-          limit: newsPageState.pageLimit,
-        },
-      });
-
-      if (response.status === 200) {
-        if (response.data.length === 0) {
-          Alert.alert('Nothing to fetch');
-          setNewsPageState({
-            ...newsPageState,
-            isPageLoading: false,
-            hasNext: false,
-            pageIndex: --newsPageState.pageIndex,
-          });
-        } else {
-          setNewsPageState({
-            ...newsPageState,
-            news: response.data,
-            hasNext: true,
-            isPageLoading: false,
-          });
-        }
-      }
-    } catch (ex) {
-      Alert.alert('System Error', ex.message);
-    }
+  const fetchData = () => {
+    props.loadNews({...props.newsData, isPageLoading: true});
   };
 
   const nextPage = async () => {
-    setNewsPageState({
-      ...newsPageState,
+    props.loadNews({
+      ...props.newsData,
       isPageLoading: true,
-      pageIndex: ++newsPageState.pageIndex,
+      pageIndex: ++props.newsData.pageIndex,
     });
+
+    scrollTop();
   };
 
   const previousPage = async () => {
-    if (newsPageState.pageIndex > 1) {
-      setNewsPageState({
-        ...newsPageState,
+    if (props.newsData.pageIndex > 1) {
+      props.loadNews({
+        ...props.newsData,
         isPageLoading: true,
-        pageIndex: --newsPageState.pageIndex,
+        pageIndex: --props.newsData.pageIndex,
       });
+      scrollTop();
     } else {
       Alert.alert('You are currently on the first page');
     }
@@ -89,35 +58,28 @@ const NewsListComponent = () => {
 
   return (
     <View style={styles.container}>
-      {newsPageState.isPageLoading && <NewsLoading />}
+      {props.newsData.isPageLoading && <NewsLoading />}
 
-      {!newsPageState.isPageLoading && (
+      {!props.newsData.isPageLoading && (
         <View>
           <FlatList
             style={styles.newsFlatList}
-            data={newsPageState.news}
-            renderItem={({item}) => <News title={item.title} />}
+            data={props.newsData.news}
+            renderItem={({item}) => <News news={item} />}
             keyExtractor={(item) => item.id}
+            ref={scrollRef}
           />
 
           <NewsPagination
             backFunction={previousPage}
             nextFunction={nextPage}
-            disableNext={!newsPageState.hasNext}
+            disableNext={!props.newsData.hasNext}
           />
         </View>
       )}
     </View>
   );
 };
-
-interface INewsListComponent {
-  news: Array<INewsList>;
-  isPageLoading: boolean;
-  hasNext: boolean;
-  pageIndex: number;
-  pageLimit: number;
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -132,4 +94,19 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewsListComponent;
+interface IProps {
+  newsData: INewsListComponent;
+  loadNews: Function;
+  nextPage: Function;
+  previousPage: Function;
+}
+
+const mapState = (state) => ({
+  newsData: state.newsModel,
+});
+
+const mapDispatch = ({newsModel: {loadNews}}) => ({
+  loadNews: (props: INewsListComponent) => loadNews(props),
+});
+
+export default connect(mapState, mapDispatch)(NewsListComponent);

@@ -1,23 +1,20 @@
 import React from 'react';
 import NewsDetailsComponent from '../../shared/components/News/NewsDetailsComponent';
-import {INews} from '../../interfaces/INews';
 import {ScrollView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppFooter from '../../shared/components/AppFooter/AppFooter';
+import {Colours} from '../../constant/Colours';
 
-const NewsDetailsScreen = (props: INews) => {
+const NewsDetailsScreen = ({route}) => {
+  const {news} = route.params;
+  console.log(news);
   return (
     <SafeAreaView>
-      <ScrollView>
-        <NewsDetailsComponent
-          title={props.title}
-          author={props.author}
-          body={props.body}
-          createdAt={props.createdAt}
-          id={props.id}
-          image={props.image}
-          url={props.url}
-        />
+      <ScrollView
+        style={{
+          backgroundColor: '#212121',
+        }}>
+        <NewsDetailsComponent news={news} />
       </ScrollView>
       <AppFooter />
     </SafeAreaView>

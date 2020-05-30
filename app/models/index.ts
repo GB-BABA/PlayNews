@@ -1,6 +1,14 @@
 import {IUser} from '../interfaces/IUser';
-import {INewsListComponent} from '../interfaces/INews';
-import {fetchNewsWithImage} from '../services/NewsService';
+import {
+  INewsListComponent,
+  INewsComment,
+  INewsCommentComponent,
+} from '../interfaces/INews';
+import {
+  fetchNewsWithImage,
+  fetchNewsComment,
+  fetchNewsIncludingComments,
+} from '../services/NewsService';
 
 const initialUserProfileState: IUser = {
   username: 'Akinsanya Omogbolahan',
@@ -75,15 +83,11 @@ export const newsModel = {
     // handle state changes with impure functions.
     async loadNews(payload: INewsListComponent) {
       try {
-        const responseData = await fetchNewsWithImage({
+        const responseData = await fetchNewsIncludingComments({
           pageIndex: payload.pageIndex,
           pageLimit: payload.pageLimit,
         });
         payload.news = responseData.data;
-        // payload.isPageLoading = false;
-        // payload.hasNext = true;
-
-        console.log(payload);
       } catch (ex) {}
 
       dispatch.newsModel.save(payload);

@@ -46,7 +46,6 @@ interface IProps {
 }
 
 const mapState = (state) => ({
-  count: state.count,
   user: state.userProfileModel,
 });
 

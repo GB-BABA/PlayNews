@@ -3,31 +3,33 @@ import NewsImage from './NewsImageComponent';
 import {View, StyleSheet} from 'react-native';
 import {INews} from '../../../interfaces/INews';
 import NewsImagePlaceholder from './NewsImagePlaceholderComponent';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Colours} from '../../../constant/Colours';
 import TextView from '../TextComponent';
 import {DefaultFontFamily} from '../../layoutStyles/DarkLayoutStyle';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 
-const News = (props: INews) => {
+const News = (props: IProps) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('news-details');
+          navigation.navigate('news-details', {news: props.news});
         }}>
-        {/* {props.image && <NewsImagePlaceholder />}
-      {!props.image && <NewsImage source={props.image ?? ''} />} */}
-        <NewsImagePlaceholder style={styles.captionImage} />
+        {!props.news.image && <NewsImagePlaceholder />}
+        {props.news.image && <NewsImage source={props.news.image} />}
         <View style={styles.caption}>
-          <TextView style={styles.captionText}>{props.title}</TextView>
+          <TextView style={styles.captionText}>{props.news.title}</TextView>
         </View>
       </TouchableOpacity>
     </View>
   );
 };
+
+interface IProps {
+  news: INews;
+}
 
 const styles = StyleSheet.create({
   container: {

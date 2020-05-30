@@ -36,7 +36,10 @@ export function HomeStackScreen() {
         component={NewsDetailsScreen}
         options={{
           header: (props) => (
-            <AppHeaderWithBackButtonComponent name={props.navigation.n} />
+            <AppHeaderWithBackButtonComponent
+              navigation={props.navigation}
+              name=""
+            />
           ),
         }}
       />

@@ -10,7 +10,7 @@ export interface INews {
   createdAt?: Date;
   url?: string;
   body?: string;
-  image?: Array<INewsImage>;
+  image?: Array<string>;
   comments?: Array<INewsComment>;
 }
 

@@ -8,15 +8,9 @@ import {DefaultFontFamily} from '../../layoutStyles/DarkLayoutStyle';
 import NewsCommentComponent from './NewsCommentComponent';
 
 const NewsDetailsComponent = (props: IProps) => {
-  const getImages = (newsImages: Array<INewsImage>) => {
-    return newsImages.map((news) => {
-      return news.image;
-    });
-  };
-
   return (
     <View style={{flex: 1, flexDirection: 'column'}}>
-      <SliderBox autoplay={true} images={getImages(props.news.image ?? [])} />
+      <SliderBox autoplay={true} images={props.news.image ?? []} />
       <TextView style={styles.title}>{props.news.title}</TextView>
       <TextView style={styles.body}>{props.news.body}</TextView>
       <NewsCommentComponent comments={props.news.comments} />

@@ -1,4 +1,4 @@
-import {INewsList, INews, INewsComment} from '../interfaces/INews';
+import {INewsList, INews, INewsComment, INewsImage} from '../interfaces/INews';
 import {IServiceFunction} from '../interfaces/IServiceFunction';
 import axiosClient from '../config/axiosConfig';
 import {ServiceResponseMessage} from '../constant/ServiceResponseMessage';
@@ -85,18 +85,20 @@ export async function fetchNews(
     data: {pageIndex: pageIndex, news: []},
   };
   try {
-    const response = await axiosClient.get('/news', {
+    const response = await axiosClient.get<Array<INews>>('/news', {
       params: {
         page: pageIndex,
         limit: pageLimit,
       },
     });
 
+    console.log('vvvv', response.data);
+
     if (response.status === 200) {
       responseObject.message = ServiceResponseMessage.Successful;
       responseObject.data = {
         pageIndex: pageIndex,
-        news: response.data as INews[],
+        news: response.data,
       };
     } else {
       throw new Error(ServiceResponseMessage.Error);
@@ -139,11 +141,19 @@ export async function fetchNewsImage(
     data: [],
   };
   try {
-    const response = await axiosClient.get(`/news/${newsId}/images`);
+    const response = await axiosClient.get<Array<INewsImage>>(
+      `/news/${newsId}/images`,
+    );
+
+    let images: Array<string> = [];
+
+    response.data.forEach((image) => {
+      images.push(image.image);
+    });
 
     if (response.status === 200) {
       responseObject.message = ServiceResponseMessage.Successful;
-      responseObject.data = response.data;
+      responseObject.data = images;
     } else {
       throw new Error(ServiceResponseMessage.Error);
     }
